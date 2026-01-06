@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หลังบ้าน - เพิ่มข้อมูลการ์ด</title>
+    <link rel="stylesheet" href="style.css"> <style>
+        /* เพิ่มเติม CSS สำหรับฟอร์มโดยเฉพาะ */
+        .admin-form {
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box; /* ป้องกัน Input ล้นจอ */
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-form">
+        <h2>➕ เพิ่มการ์ดข้อมูลใหม่</h2>
+        <form id="cardForm">
+            <div class="form-group">
+                <label for="title">หัวข้อการ์ด</label>
+                <input type="text" id="title" placeholder="เช่น บริการของเรา" required>
+            </div>
+            <div class="form-group">
+                <label for="description">รายละเอียด</label>
+                <textarea id="description" rows="4" placeholder="กรอกคำอธิบายที่นี่..." required></textarea>
+            </div>
+            <button type="submit">บันทึกข้อมูล</button>
+        </form>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
