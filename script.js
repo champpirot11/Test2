@@ -1,30 +1,32 @@
-// ฟังก์ชันสำหรับดึงข้อมูลและแสดงผล
-function loadCards() {
-    const container = document.getElementById('card-container');
+import { db, ref, onValue } from './firebase-config.js';
+
+const container = document.getElementById('card-container');
+const cardsRef = ref(db, 'cards');
+
+// ฟังก์ชันดึงข้อมูล
+onValue(cardsRef, (snapshot) => {
+    const data = snapshot.val();
     
-    // 1. ดึงข้อมูลจาก Database
-    const database = JSON.parse(localStorage.getItem('myCards')) || [];
+    // ลองเช็คใน Console ว่าข้อมูลมาไหม
+    console.log("ข้อมูลจาก Firebase:", data);
 
-    // ล้างข้อความ "กำลังโหลด..." ออก
-    container.innerHTML = '';
+    container.innerHTML = ''; 
 
-    // 2. ตรวจสอบว่ามีข้อมูลไหม
-    if (database.length === 0) {
-        container.innerHTML = '<p>ยังไม่มีข้อมูลในระบบ</p>';
-        return;
+    if (data) {
+        Object.keys(data).reverse().forEach(key => {
+            const item = data[key];
+            const cardHTML = `
+                <div class="card">
+                    <h3>${item.title || 'ไม่มีหัวข้อ'}</h3>
+                    <p>${item.description || 'ไม่มีรายละเอียด'}</p>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    } else {
+        container.innerHTML = '<p>เชื่อมต่อสำเร็จ แต่ยังไม่มีข้อมูลในฐานข้อมูล (cards)</p>';
     }
-
-    // 3. วนลูปสร้าง HTML จากข้อมูลที่มี
-    database.forEach(data => {
-        const cardHTML = `
-            <div class="card">
-                <h3>${data.title}</h3>
-                <p>${data.description}</p>
-            </div>
-        `;
-        container.innerHTML += cardHTML;
-    });
-}
-
-// สั่งให้ทำงานทันทีที่เปิดหน้าเว็บ
-loadCards();
+}, (error) => {
+    // ถ้าดึงข้อมูลไม่ได้จะแจ้งเตือนตรงนี้
+    console.error("เกิดข้อผิดพลาดในการดึงข้อมูล:", error);
+});
