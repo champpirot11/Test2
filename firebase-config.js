@@ -1,8 +1,6 @@
-// นำเข้า Library จาก Google โดยตรง
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// รหัสที่คุณก๊อปปี้มาจากขั้นตอนที่ 3
 const firebaseConfig = {
   apiKey: "AIzaSyAxOVgoNu8hHeQlLJlLzVwacmctbUUT1f8",
   authDomain: "test-b80d5.firebaseapp.com",
@@ -13,9 +11,7 @@ const firebaseConfig = {
   appId: "1:800551933290:web:9878d7624f7e07b5c4c113"
 };
 
-// เริ่มต้นการเชื่อมต่อ
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ส่งตัวแปรออกไปให้ไฟล์อื่นใช้งาน
 export { db, ref, push, onValue, remove };
