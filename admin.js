@@ -1,26 +1,19 @@
-import { db, ref, onValue } from './firebase-config.js';
+import { db, ref, push } from './firebase-config.js';
 
-const container = document.getElementById('card-container');
-const cardsRef = ref(db, 'cards');
+const cardForm = document.getElementById('cardForm');
 
-// ฟังก์ชันดึงข้อมูลแบบ Realtime
-onValue(cardsRef, (snapshot) => {
-    const data = snapshot.val();
-    container.innerHTML = ''; // ล้างหน้าจอเก่า (เช่น คำว่า "กำลังโหลด")
+cardForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const title = document.getElementById('title').value;
+    const description = document.getElementById('description').value;
 
-    if (data) {
-        // วนลูปดึงข้อมูลออกมา (Firebase ส่งข้อมูลมาเป็น Object)
-        Object.keys(data).reverse().forEach(key => {
-            const item = data[key];
-            const cardHTML = `
-                <div class="card">
-                    <h3>${item.title}</h3>
-                    <p>${item.description}</p>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
-        });
-    } else {
-        container.innerHTML = '<p>ยังไม่มีข้อมูลในฐานข้อมูล</p>';
-    }
+    push(ref(db, 'cards'), {
+        title: title,
+        description: description,
+        createdAt: Date.now() // เพิ่มบรรทัดนี้เพื่อเก็บเวลาปัจจุบัน
+    }).then(() => {
+        alert("บันทึกออนไลน์สำเร็จ!");
+        cardForm.reset();
+    });
 });
