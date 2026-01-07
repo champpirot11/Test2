@@ -3,13 +3,9 @@ import { db, ref, onValue } from './firebase-config.js';
 const container = document.getElementById('card-container');
 const cardsRef = ref(db, 'cards');
 
-// ฟังก์ชันดึงข้อมูล
 onValue(cardsRef, (snapshot) => {
     const data = snapshot.val();
-    
-    // ลองเช็คใน Console ว่าข้อมูลมาไหม
-    console.log("ข้อมูลจาก Firebase:", data);
-
+    console.log("ข้อมูลจาก Firebase:", data); // ตรวจสอบใน Console
     container.innerHTML = ''; 
 
     if (data) {
@@ -24,9 +20,8 @@ onValue(cardsRef, (snapshot) => {
             container.innerHTML += cardHTML;
         });
     } else {
-        container.innerHTML = '<p>เชื่อมต่อสำเร็จ แต่ยังไม่มีข้อมูลในฐานข้อมูล (cards)</p>';
+        container.innerHTML = '<p>เชื่อมต่อสำเร็จ แต่ยังไม่มีข้อมูลในฐานข้อมูล</p>';
     }
 }, (error) => {
-    // ถ้าดึงข้อมูลไม่ได้จะแจ้งเตือนตรงนี้
-    console.error("เกิดข้อผิดพลาดในการดึงข้อมูล:", error);
+    console.error("เกิดข้อผิดพลาด:", error);
 });
