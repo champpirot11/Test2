@@ -1,3 +1,4 @@
+/* คงค่า :root และ body เดิมของคุณไว้ทั้งหมด */
 :root {
     --primary: #4f46e5;
     --danger: #ef4444;
@@ -15,63 +16,57 @@ body {
     padding: 20px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
+header { text-align: center; margin-bottom: 40px; }
 
+/* ปรับ container ให้เป็นกล่องเก็บตาราง */
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-}
-
-.card {
     background: var(--card-bg);
     border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* ให้ขอบตารางมนตามกล่อง */
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+/* สไตล์ตารางแบบ Modern */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
 }
 
-.card h3 {
-    margin: 0 0 12px 0;
-    font-size: 1.25rem;
-    color: var(--text-main);
-}
-
-.card p {
+th {
+    background-color: #f1f5f9;
+    padding: 16px;
+    text-align: left;
+    font-size: 0.9rem;
     color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
 }
 
-/* ส่วนแสดงวันที่ */
+td {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 0.95rem;
+}
+
+tr:hover {
+    background-color: #fcfdfe;
+}
+
+/* คงปุ่มลบและวันที่ของคุณไว้ */
 .card-date {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
-    display: block;
-    margin-bottom: 10px;
 }
 
-/* ปุ่มลบแบบ Modern */
 .delete-btn {
     background-color: #fee2e2;
     color: var(--danger);
     border: none;
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.9rem;
     font-weight: 500;
     transition: 0.2s;
 }
